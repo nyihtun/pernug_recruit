@@ -1,0 +1,25 @@
+version: '3'
+services:
+  frontend:
+    build:
+     context: ./frontend
+     dockerfile: Dockerfile
+    ports:
+     - "4101:80"
+    depends_on:
+     - express
+    restart: always
+  express:
+    build:
+     context: ./backend
+     dockerfile: Dockerfile
+    ports:
+     - "4100:4000"
+    depends_on:
+     - mongo
+    restart: always
+  mongo:
+    image: mongo
+    restart: always
+    volumes: 
+      - ./pernug-recruit-db:/data/db
